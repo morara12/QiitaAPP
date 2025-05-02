@@ -10,9 +10,8 @@ width: 10em;
 height: 3em;
 }
 .b-tab {
-    padding: 20px;
-    border: 1px solid #000;
-    display: none;
+padding: 20px;
+display: none;
 }
 
 .b-tab.active {
