@@ -1,29 +1,29 @@
 .header{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center
 }
 
 #profile, #article-lists, #new-post{
-width: 10em;
-height: 3em;
+	width: 10em;
+	height: 3em;
 }
 .b-tab {
-padding: 20px;
-display: none;
+	padding: 20px;
+	display: none;
 }
 
 .b-tab.active {
-display: block;
+	display: block;
 }
 
 .b-nav-tab {
-display: inline-block;
-padding: 20px;
+	display: inline-block;
+	padding: 20px;
 }
 
 .b-nav-tab.active {
-color: #ff4200;
+	color: #ff4200;
 }
   
