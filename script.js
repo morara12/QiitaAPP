@@ -32,10 +32,10 @@ function Tabs() {
     e.target.classList.add('active');
     //target…イベントが発生した要素を取得
     const id = e.currentTarget.getAttribute('data-tab');
-    //currentTarget…常に実行中のアクションが登録された要素が取得さ
+    //currentTarget…常に実行中のアクションが登録された要素が取得される
     document.getElementById(id).classList.add('active');
   }
-
+console.log(fetchNormal())
   bindAll();
 }
 

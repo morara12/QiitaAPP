@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="./style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qiitaアプリ</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qiitaアプリ</title>
 </head>
 <body>
-<header class="header">
-    <h1>Qiita APP</h1>
-    <button id="#profile" data-tab="profile" class="b-nav-tab active">プロフィール</button>
-    <button id="#article-lists" data-tab="article-lists" class="b-nav-tab">記事一覧</button>
-    <button id="#new-post" data-tab="new-post" class="b-nav-tab">新規投稿</button>
-</header>
-<div id="profile" class="b-tab active">
-1
-</div>
-<div id="article-lists" class="b-tab">
-2
-</div>
-<div id="new-post" class="b-tab">
-3
-</div>
+  <header class="header">
+    <div class="app-name">
+      <h1>Qiita APP</h1>
+    </div>
+    <div class="tab-buttons">
+      <button id="#profile" data-tab="profile" class="b-nav-tab active">プロフィール</button>
+      <button id="#article-lists" data-tab="article-lists" class="b-nav-tab">記事一覧</button>
+      <button id="#new-post" data-tab="new-post" class="b-nav-tab">新規投稿</button>
+    </div>
+  </header>
+  <div class="main-warraper">
+    <div id="profile" class="b-tab active">
+    Profile
+    </div>
+    <div id="article-lists" class="b-tab">
+    記事一覧
+    </div>
+    <div id="new-post" class="b-tab">
+    新規投稿
+    </div>
+  </div>
 </body>
 </html>
 <script  src="./script.js"></script>  
-<!-- ヘッダーの枠を作成 -->
- <!-- タイトルを付ける -->
- <!-- ボタンを作成 -->
-  <!-- 大枠の位置の調整固定 -->
