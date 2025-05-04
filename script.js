@@ -35,7 +35,7 @@ function Tabs() {
     //currentTarget…常に実行中のアクションが登録された要素が取得される
     document.getElementById(id).classList.add('active');
   }
-console.log(fetchNormal())
+
   bindAll();
 }
 
