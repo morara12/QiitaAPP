@@ -1,13 +1,55 @@
-fetch("https://qiita.com/api/v2/users/morara12/")
-  .then((response) => response.json())
-  .then((text) => console.log(text))
-  .catch((error) => console.error(error));
-  https://www.youtube.com/watch?v=pzIxzegWVu8&t=1469s
+
+const profile = document.getElementById("#profile");
+profile.addEventListener("click", () => profileInformationAcquisition());
+
+function profileInformationAcquisition(){
+  console.log("ボタンクリック成功");
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer");
+  
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+  
+  fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);    // データ確認        // 取得したデータを表示用関数へ渡す
+    })
+    .catch((error) => console.error(error));
+  // https://www.youtube.com/watch?v=pzIxzegWVu8&t=1469s
   // feach関数JSでHTTPリクエストを送って、HTTPレスポンスを受け取る仕組み/非同期処理
   // HTTPホームページのファイルとかを受け渡しするときに使うお約束事
   // HTTPリクエストホームページを見るときに、ホームページを見るときに使うソフト（Webブラウザ）から
   // ホームページのファイルが置いてあるコンピュータ（Webサーバ）に対して出される「このページをちょうだい」なお願いのこと
   // HTTPレスポンス（リクエストに対しての返答）
+  // 表示()
+}
+
+// function 表示(result){
+//   const div = document.createElement("div");
+//   // const syutoku = profileInformationAcquisition.map((todo) => todo.id); 
+//   const p = document.createElement('p');
+//   const viewText = document.createTextNode(id.text);
+
+
+//   p.textContent = `ユーザー名:${viewText}`;
+//   div.appendChild(p);
+
+//   document.body.appendChild(div);
+// }
+
+
+
+
+
+
+
+
+
+
 function Tabs() {
   const bindAll = function() {
     const tabElements = document.querySelectorAll('[data-tab]');
@@ -15,6 +57,7 @@ function Tabs() {
       tabElements[i].addEventListener('click', change);
     }
   }
+
   // bindあっちとこっちを紐付ける、関連付ける、割り当てること
  // data属性
   // dataとは(後ろは自由)
@@ -33,7 +76,6 @@ function Tabs() {
       tabElements[i].classList.remove('active');
       const id = tabElements[i].getAttribute('data-tab');
       document.getElementById(id).classList.remove('active');
-      // console.log(document.getElementById(id).classList.remove('active'))
     }
   }
 //getAttribute…属性の取得https://qiita.com/y-t0910/items/f6e01883b3569b7cb0ed
@@ -49,7 +91,7 @@ function Tabs() {
 }
 
 // function fetchNormal(){
-//   // 気象庁の今日の東京の天気API(JSON)
+
 //   const url = 'https://qiita.com/api/v2/users/morara12/';
   
 //   const promise = fetch(url);
