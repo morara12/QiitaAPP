@@ -1,22 +1,50 @@
+document.addEventListener("DOMContentLoaded", getProfileInformation());
 
-const profile = document.getElementById("#profile");
-profile.addEventListener("click", () => profileInformationAcquisition());
+const profile = document.getElementById("profile-btn");
+profile.addEventListener("click", () => getProfileInformation());
 
-function profileInformationAcquisition(){
-  console.log("ボタンクリック成功");
+// ＜トークン呼び出しのための関数＞
+async function  getToken(){
+  const response  = await fetch('./config.json');
+  const data = await response.json();
+
+  return data.qiitaAccessToken;
+}
+
+
+// async function profileInformationAcquisition (){
+//   try{
+//   const response  = await fetch('./config.json');
+//   const data = await response.json();
+//   console.log("data",data);
+//   return data.qiitaAccessToken;
+// }
+
+
+// プロフィール情報取得
+async function getProfileInformation(){
+  const qiitaAccessToken = await getToken();
+
   const myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer");
+  myHeaders.append("Authorization", `Bearer ${qiitaAccessToken}`);
   
   const requestOptions = {
     method: "GET",
     headers: myHeaders,
     redirect: "follow"
   };
-  
+  // https://ja.wikibooks.org/wiki/JavaScript/Headers
+  // headers: myHeaders,
+  // Headersオブジェクトは、Fetch APIを使用する際に、HTTPリクエストやレスポンスのヘッダー情報を操作するためのオブジェクト
+  // 指定したキーを追加している
+  // https://kde.hateblo.jp/entry/2018/10/22/010811
+  //redirectリダイレクトが発生した場合どう処理するかについて指定する。
+// follow : リダイレクト先まで追従してリソースの取得を行う ※デフォルト
   fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);    // データ確認        // 取得したデータを表示用関数へ渡す
+      console.log(result);
+      displayProfile(result);// データ確認        // 取得したデータを表示用関数へ渡す
     })
     .catch((error) => console.error(error));
   // https://www.youtube.com/watch?v=pzIxzegWVu8&t=1469s
@@ -28,27 +56,31 @@ function profileInformationAcquisition(){
   // 表示()
 }
 
-// function 表示(result){
-//   const div = document.createElement("div");
-//   // const syutoku = profileInformationAcquisition.map((todo) => todo.id); 
-//   const p = document.createElement('p');
-//   const viewText = document.createTextNode(id.text);
+function displayProfile(result){
+  const profileArea = document.getElementById("profile");
+  const div = document.createElement("div");
+  div.classList.add("display-profile")
 
+  const usernameP= document.createElement('p');
+  usernameP.textContent = `ユーザー名: ${result.id}`;
 
-//   p.textContent = `ユーザー名:${viewText}`;
-//   div.appendChild(p);
+  const userDescriptionP = document.createElement('p');
+  userDescriptionP.classList.add("user-description")
+  userDescriptionP.textContent = `${result.description}`;
 
-//   document.body.appendChild(div);
-// }
+  // https://magazine.techacademy.jp/magazine/20738
+  const img = document.createElement('img');
+  img.src = result.profile_image_url;  // result.icon_url にはアイコンのURLを格納
+  // src.埋め込みたい画像へのパス
+  img.width = "100";
+  img.height = "100";
 
+  div.appendChild(img);
+  div.appendChild(usernameP);
+  div.appendChild(userDescriptionP);
 
-
-
-
-
-
-
-
+  profileArea.appendChild(div);
+}
 
 function Tabs() {
   const bindAll = function() {
@@ -90,15 +122,4 @@ function Tabs() {
   bindAll();
 }
 
-// function fetchNormal(){
-
-//   const url = 'https://qiita.com/api/v2/users/morara12/';
-  
-//   const promise = fetch(url);
-//   promise
-//     .then(response => response.json())
-//     .then(jsondata => {
-//         showResult("result: " + JSON.stringify(jsondata));
-//     });
-// }
 Tabs();

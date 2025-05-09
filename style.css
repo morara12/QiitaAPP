@@ -33,3 +33,14 @@
     justify-content: space-evenly;
     margin:10px;
 }
+
+.display-profile{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.user-description{
+
+
+}
