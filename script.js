@@ -103,6 +103,20 @@ function displayProfile(result){
   profileArea.appendChild(div);
 }
 
+function displayArticleLists(){
+  const profileArea = document.getElementById("article-lists");
+  const div = document.createElement("div");
+  div.classList.add("display-article-lists")
+
+  const articleListsElement = document.createElement('p');
+  articleListsElement.textContent = "記事一覧";
+  articleListsElement.classList.add("display-article-lists-ement")
+
+
+
+}
+
+
 function Tabs() {
   const bindAll = function() {
     const tabElements = document.querySelectorAll('[data-tab]');
