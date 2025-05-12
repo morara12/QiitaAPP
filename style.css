@@ -15,6 +15,7 @@
 .b-tab {
 	padding: 20px;
 	display: none;
+  background-color: white;
 }
 
 .b-tab.active {
@@ -29,9 +30,9 @@
 }
 
 .main-warraper{
-    display: flex;
-    justify-content: space-evenly;
-    margin:10px;
+  display: flex;
+  justify-content: space-evenly;
+  margin:10px;
 }
 
 .display-profile{
@@ -39,8 +40,21 @@
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
+  margin: 100px;
+  width:20em;
 }
-.user-description{
 
+.profile-element{
+font-weight:bold;
+font-size: 1.3em;
+}
 
+img{
+  object-fit: cover;
+  width: 200px;  
+  height: 200px; 
+}
+
+body{
+  background-color: gray;
 }
