@@ -16,23 +16,9 @@ async function  getToken(){
   return data.qiitaAccessToken;
 }
 
-
-// async function profileInformationAcquisition (){
-//   try{
-//   const response  = await fetch('./config.json');
-//   const data = await response.json();
-//   console.log("data",data);
-//   return data.qiitaAccessToken;
-// }
-
-
-async function getProfileInformation(){
-  const profileArea = document.getElementById("profile");
-
-  if (profileArea.querySelector('.display-profile')){
-    return;
-  }else{
+async function getResponse(){
     const qiitaAccessToken = await getToken();
+
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${qiitaAccessToken}`);
 
@@ -40,7 +26,29 @@ async function getProfileInformation(){
       method: "GET",
       headers: myHeaders,
       redirect: "follow"
-    };
+    }
+
+    return requestOptions
+}
+
+async function getArticleList(){
+    const requestOptions = await getResponse();
+    const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions)
+    const data = await response.json();
+
+
+
+}
+
+async function getProfileInformation(){
+  const profileArea = document.getElementById("profile");
+
+  if (profileArea.querySelector('.display-profile')){
+    return;
+  }else{
+    const requestOptions = await getResponse();
+    // 関数だけだと実行して終わり/変数にして使うことによって結果が保存される
+    console.log(getResponse())
     // https://ja.wikibooks.org/wiki/JavaScript/Headers
     // headers: myHeaders,
     // Headersオブジェクトは、Fetch APIを使用する際に、HTTPリクエストやレスポンスのヘッダー情報を操作するためのオブジェクト
@@ -101,6 +109,22 @@ function displayProfile(result){
   div.appendChild(userDescriptionElement);
 
   profileArea.appendChild(div);
+}
+
+function 関数(){
+  const myHeaders = new Headers();
+myHeaders.append("Authorization", "");
+
+const requestOptions = {
+  method: "GET",
+  headers: myHeaders,
+  redirect: "follow"
+};
+
+fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
 }
 
 function displayArticleLists(){
