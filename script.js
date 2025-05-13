@@ -4,6 +4,7 @@ const profile = document.getElementById("profile-btn");
 profile.addEventListener("click", () => getProfileInformation());
 
 const articlelist = document.getElementById("article-lists-btn");
+articlelist.addEventListener("click", () => getArticleList());
 // articlelist.addEventListener("click", () => getProfileInformation());
 
 
@@ -16,23 +17,9 @@ async function  getToken(){
   return data.qiitaAccessToken;
 }
 
-
-// async function profileInformationAcquisition (){
-//   try{
-//   const response  = await fetch('./config.json');
-//   const data = await response.json();
-//   console.log("data",data);
-//   return data.qiitaAccessToken;
-// }
-
-
-async function getProfileInformation(){
-  const profileArea = document.getElementById("profile");
-
-  if (profileArea.querySelector('.display-profile')){
-    return;
-  }else{
+async function getResponse(){
     const qiitaAccessToken = await getToken();
+
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${qiitaAccessToken}`);
 
@@ -40,7 +27,13 @@ async function getProfileInformation(){
       method: "GET",
       headers: myHeaders,
       redirect: "follow"
-    };
+    }
+    // https://www.youtube.com/watch?v=pzIxzegWVu8&t=1469s
+    // feach関数JSでHTTPリクエストを送って、HTTPレスポンスを受け取る仕組み/非同期処理
+    // HTTPホームページのファイルとかを受け渡しするときに使うお約束事
+    // HTTPリクエストホームページを見るときに、ホームページを見るときに使うソフト（Webブラウザ）から
+    // ホームページのファイルが置いてあるコンピュータ（Webサーバ）に対して出される「このページをちょうだい」なお願いのこと
+    // HTTPレスポンス（リクエストに対しての返答）
     // https://ja.wikibooks.org/wiki/JavaScript/Headers
     // headers: myHeaders,
     // Headersオブジェクトは、Fetch APIを使用する際に、HTTPリクエストやレスポンスのヘッダー情報を操作するためのオブジェクト
@@ -48,23 +41,59 @@ async function getProfileInformation(){
     // https://kde.hateblo.jp/entry/2018/10/22/010811
     //redirectリダイレクトが発生した場合どう処理するかについて指定する。
     // follow : リダイレクト先まで追従してリソースの取得を行う ※デフォルト
-    try {
-    const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
-    const data = await response.json();
-
-    console.log(data);
-    displayProfile(data); 
-    }catch(error){
-        console.error(error);
-    // https://www.youtube.com/watch?v=pzIxzegWVu8&t=1469s
-    // feach関数JSでHTTPリクエストを送って、HTTPレスポンスを受け取る仕組み/非同期処理
-    // HTTPホームページのファイルとかを受け渡しするときに使うお約束事
-    // HTTPリクエストホームページを見るときに、ホームページを見るときに使うソフト（Webブラウザ）から
-    // ホームページのファイルが置いてあるコンピュータ（Webサーバ）に対して出される「このページをちょうだい」なお願いのこと
-    // HTTPレスポンス（リクエストに対しての返答）
-    // 表示()
-}}
+    return requestOptions
 }
+
+async function getArticleList(){
+  // const articleLists = document.getElementById("article-lists");
+
+  const requestOptions = await getResponse();
+  const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions)
+  const data = await response.json();
+
+  displayArticleLists(data)
+  
+  console.log(data)
+
+}
+
+function displayArticleLists(data){
+  const titleArray  =  data.map((data) => data.title); 
+  titleArray.forEach(title => articleListsCreateElement(title))
+}
+
+function articleListsCreateElement(title){
+  const articleListsArea = document.getElementById("article-lists");
+
+  const div = document.createElement("div");
+  const articleListElement = document.createElement('p');
+  const viewText = document.createTextNode(title);
+
+  articleListElement.appendChild(viewText);
+  div.appendChild(articleListElement);
+  articleListsArea.appendChild(div);
+
+  return div
+}
+
+async function getProfileInformation(){
+  const profileArea = document.getElementById("profile");
+  
+  // https://qiita.com/andota05/items/fc1e340642be42ca47c0
+  // throw文参考
+    try{
+      const requestOptions = await getResponse();
+      const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
+      const data = await response.json();
+
+      //https://techplay.jp/column/469
+        if (!profileArea.querySelector('.display-profile')){
+          displayProfile(data); 
+        }
+    } catch (error) {
+      console.error(error);
+}}
+
 
 function displayProfile(result){
   // 古い情報を残っているため、ボタンをクリックするたび表示されてしまう
@@ -102,20 +131,6 @@ function displayProfile(result){
 
   profileArea.appendChild(div);
 }
-
-function displayArticleLists(){
-  const profileArea = document.getElementById("article-lists");
-  const div = document.createElement("div");
-  div.classList.add("display-article-lists")
-
-  const articleListsElement = document.createElement('p');
-  articleListsElement.textContent = "記事一覧";
-  articleListsElement.classList.add("display-article-lists-ement")
-
-
-
-}
-
 
 function Tabs() {
   const bindAll = function() {
