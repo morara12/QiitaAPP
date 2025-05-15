@@ -7,8 +7,8 @@ const articlelist = document.getElementById("article-lists-btn");
 articlelist.addEventListener("click", () => getArticleList());
 // articlelist.addEventListener("click", () => getProfileInformation());
 
-
-
+const pass = document.getElementById("pass");
+// pass.value
 // ＜トークン呼び出しのための関数＞
 async function  getToken(){
   const response  = await fetch('./config.json');
@@ -18,30 +18,24 @@ async function  getToken(){
 }
 
 async function getResponse(){
-    const qiitaAccessToken = await getToken();
+  const qiitaAccessToken = await getToken();
 
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${qiitaAccessToken}`);
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${qiitaAccessToken}`);
 
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    }
-    // https://www.youtube.com/watch?v=pzIxzegWVu8&t=1469s
-    // feach関数JSでHTTPリクエストを送って、HTTPレスポンスを受け取る仕組み/非同期処理
-    // HTTPホームページのファイルとかを受け渡しするときに使うお約束事
-    // HTTPリクエストホームページを見るときに、ホームページを見るときに使うソフト（Webブラウザ）から
-    // ホームページのファイルが置いてあるコンピュータ（Webサーバ）に対して出される「このページをちょうだい」なお願いのこと
-    // HTTPレスポンス（リクエストに対しての返答）
-    // https://ja.wikibooks.org/wiki/JavaScript/Headers
-    // headers: myHeaders,
-    // Headersオブジェクトは、Fetch APIを使用する際に、HTTPリクエストやレスポンスのヘッダー情報を操作するためのオブジェクト
-    // 指定したキーを追加している
-    // https://kde.hateblo.jp/entry/2018/10/22/010811
-    //redirectリダイレクトが発生した場合どう処理するかについて指定する。
-    // follow : リダイレクト先まで追従してリソースの取得を行う ※デフォルト
-    return requestOptions
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow"
+  }
+
+  return requestOptions
+}
+
+async function getArticleList(){
+  const requestOptions = await getResponse();
+  const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions)
+  const data = await response.json();
 }
 
 async function getArticleList(){
@@ -68,6 +62,7 @@ function articleListsCreateElement(title){
   const div = document.createElement("div");
   const articleListElement = document.createElement('p');
   const viewText = document.createTextNode(title);
+  // 新しいテキスト作成
 
   articleListElement.appendChild(viewText);
   div.appendChild(articleListElement);
@@ -78,21 +73,24 @@ function articleListsCreateElement(title){
 
 async function getProfileInformation(){
   const profileArea = document.getElementById("profile");
+  console.log(pass.value)
+
   
   // https://qiita.com/andota05/items/fc1e340642be42ca47c0
   // throw文参考
-    try{
-      const requestOptions = await getResponse();
-      const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
-      const data = await response.json();
+  try{
+    const requestOptions = await getResponse();
+    const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
+    const data = await response.json();
 
-      //https://techplay.jp/column/469
-        if (!profileArea.querySelector('.display-profile')){
-          displayProfile(data); 
-        }
-    } catch (error) {
-      console.error(error);
-}}
+    //https://techplay.jp/column/469
+    if (!profileArea.querySelector('.display-profile')){
+      displayProfile(data); 
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 function displayProfile(result){
@@ -100,15 +98,13 @@ function displayProfile(result){
   const profileArea = document.getElementById("profile");
   const div = document.createElement("div");
   div.classList.add("display-profile")
+
+  const profileIntroductionElement = document.createElement("div");
+  profileIntroductionElement.classList.add("profile-introduction")
 // divのクラスやIDを取得して、残っていたら、情報をスルーする
 // 情報取得できているかIFで作って、あればreturnさせる処理をする
-
-
-  const profileElement= document.createElement('p');
-  profileElement.textContent = "profile";
-  profileElement.classList.add("profile-element")
-
   const usernameElement= document.createElement('p');
+  usernameElement.classList.add("username")
   // pタグであることは重要ではない
   usernameElement.textContent = ` ${result.id}`;
 
@@ -124,12 +120,13 @@ function displayProfile(result){
   img.width = "100";
   img.height = "100";
 
-  div.appendChild(profileElement);
   div.appendChild(img);
-  div.appendChild(usernameElement);
-  div.appendChild(userDescriptionElement);
+
+  profileIntroductionElement.appendChild(usernameElement);
+  profileIntroductionElement.appendChild(userDescriptionElement);
 
   profileArea.appendChild(div);
+  div.appendChild(profileIntroductionElement);
 }
 
 function Tabs() {
