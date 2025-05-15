@@ -98,15 +98,13 @@ function displayProfile(result){
   const profileArea = document.getElementById("profile");
   const div = document.createElement("div");
   div.classList.add("display-profile")
+
+  const profileIntroductionElement = document.createElement("div");
+  profileIntroductionElement.classList.add("profile-introduction")
 // divのクラスやIDを取得して、残っていたら、情報をスルーする
 // 情報取得できているかIFで作って、あればreturnさせる処理をする
-
-
-  const profileElement= document.createElement('p');
-  profileElement.textContent = "profile";
-  profileElement.classList.add("profile-element")
-
   const usernameElement= document.createElement('p');
+  usernameElement.classList.add("username")
   // pタグであることは重要ではない
   usernameElement.textContent = ` ${result.id}`;
 
@@ -122,12 +120,13 @@ function displayProfile(result){
   img.width = "100";
   img.height = "100";
 
-  div.appendChild(profileElement);
   div.appendChild(img);
-  div.appendChild(usernameElement);
-  div.appendChild(userDescriptionElement);
+
+  profileIntroductionElement.appendChild(usernameElement);
+  profileIntroductionElement.appendChild(userDescriptionElement);
 
   profileArea.appendChild(div);
+  div.appendChild(profileIntroductionElement);
 }
 
 function Tabs() {
