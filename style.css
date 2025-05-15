@@ -38,9 +38,9 @@ body {
   margin-right: 10;
 }
 
-.main-warraper{
+.profile-warraper{
   display: flex;
-  align-items: flex-end;
+  justify-content: space-around;
   margin:10px;
   height: 60%;
 }
@@ -50,7 +50,8 @@ body {
   flex-direction: column;
   margin-inline: auto;
   height: auto;
-  
+  margin-top: 200px;
+  width: 80em;
 }
 .display-profile{
   display: flex;
@@ -72,7 +73,6 @@ padding: 10px;
 font-size: 20px;
 
 }
-
 img{
   width: 300px;  
   height: 300px;
@@ -93,4 +93,10 @@ body{
   font-size: 40px;
   line-height: 1px;
   font-weight: bold;
+}
+.profile-title{
+  font-size: 70px;
+  /* font-weight: bold; */
+  margin-left: 1.2em;
+  line-height: 1px;
 }
