@@ -1,11 +1,10 @@
-document.addEventListener("DOMContentLoaded", getProfileInformation());
+// document.addEventListener("DOMContentLoaded",getProfileInformation());
 
 const profile = document.getElementById("profile-btn");
 profile.addEventListener("click", () => getProfileInformation());
 
 const articlelist = document.getElementById("article-lists-btn");
 articlelist.addEventListener("click", () => getArticleList());
-// articlelist.addEventListener("click", () => getProfileInformation());
 
 const pass = document.getElementById("pass");
 // pass.value
@@ -30,12 +29,6 @@ async function getResponse(){
   }
 
   return requestOptions
-}
-
-async function getArticleList(){
-  const requestOptions = await getResponse();
-  const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions)
-  const data = await response.json();
 }
 
 async function getArticleList(){
@@ -73,8 +66,6 @@ function articleListsCreateElement(title){
 
 async function getProfileInformation(){
   const profileArea = document.getElementById("profile");
-  console.log(pass.value)
-
   
   // https://qiita.com/andota05/items/fc1e340642be42ca47c0
   // throw文参考
@@ -92,41 +83,60 @@ async function getProfileInformation(){
   }
 }
 
-
 function displayProfile(result){
   // 古い情報を残っているため、ボタンをクリックするたび表示されてしまう
   const profileArea = document.getElementById("profile");
+
+  const profileTitle = document.createElement('p');
+  profileTitle.classList.add("profile-title")
+  // pタグであることは重要ではない
+  profileTitle.textContent = "Profile";
+  profileArea.appendChild(profileTitle);
+
+  // ＜大枠＞
+  const profileWarraper = document.createElement("div");
+  profileWarraper.classList.add("profile-warraper")
+  profileArea.appendChild(profileWarraper)
+
+
   const div = document.createElement("div");
   div.classList.add("display-profile")
-
-  const profileIntroductionElement = document.createElement("div");
-  profileIntroductionElement.classList.add("profile-introduction")
-// divのクラスやIDを取得して、残っていたら、情報をスルーする
-// 情報取得できているかIFで作って、あればreturnさせる処理をする
-  const usernameElement= document.createElement('p');
-  usernameElement.classList.add("username")
-  // pタグであることは重要ではない
-  usernameElement.textContent = ` ${result.id}`;
-
-  // 「pタグ」のクラスではなく要素を作っている
-  const userDescriptionElement = document.createElement('p');
-  userDescriptionElement.classList.add("user-description")
-  userDescriptionElement.textContent = `${result.description}`;
-
+  profileWarraper.appendChild(div);
+  // 画像関係
   // https://magazine.techacademy.jp/magazine/20738
   const img = document.createElement('img');
   img.src = result.profile_image_url;  // result.icon_url にはアイコンのURLを格納
   // src.埋め込みたい画像へのパス
   img.width = "100";
   img.height = "100";
-
   div.appendChild(img);
+ 
+  const profileIntroductionElement = document.createElement("div");
+  profileIntroductionElement.classList.add("profile-introduction")
+  div.appendChild(profileIntroductionElement)
 
+// divのクラスやIDを取得して、残っていたら、情報をスルーする
+// 情報取得できているかIFで作って、あればreturnさせる処理をする
+  const usernameElement= document.createElement('p');
+  usernameElement.classList.add("username")
+  // pタグであることは重要ではない
+  usernameElement.textContent = ` ${result.id}`;
   profileIntroductionElement.appendChild(usernameElement);
+
+  // 「pタグ」のクラスではなく要素を作っている
+  // ユーザー名、ユーザー紹介
+  const userDescriptionElement = document.createElement('p');
+  userDescriptionElement.classList.add("user-description")
+  userDescriptionElement.textContent = `${result.description}`;
   profileIntroductionElement.appendChild(userDescriptionElement);
 
-  profileArea.appendChild(div);
-  div.appendChild(profileIntroductionElement);
+
+
+
+  // profileArea.appendChild(profileWarraper);
+  // profileWarraper.appendChild(div)
+  // profileArea.appendChild(div);
+
 }
 
 function Tabs() {
