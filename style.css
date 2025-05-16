@@ -11,9 +11,30 @@ body {
 .header{
 	display: flex;
 	align-items: center;
-  justify-content: space-around
+  justify-content: space-around;
 }
 
+.app-name{
+  display: flex;
+  /* flex-direction: row; */
+  /* 折り返し関係の設定/今回は1行表示 */
+  flex-wrap: nowrap;
+  /* 文字位置の設定 */
+  align-items: center;
+  margin: 16px;
+  border-radius:100%;
+}
+#token-form{
+  width: 16em;
+  min-height:24px;
+  margin-left: 32px;
+  font-size: 24px;
+  overflow: hidden;
+  color: #666666;
+  border-color: #666666;
+  outline: solid 2px #7F7F7F;
+  border-radius: 4px;
+}
 .b-nav-tab{
   width: 10em;
   height: 3em;
@@ -22,6 +43,7 @@ body {
   background-color: black;
   border-radius: 10px;
 }
+
 .b-tab {
 	padding: 20px;
 	display: none;
@@ -65,7 +87,6 @@ padding: 10px;
 
 .user-description{
 font-size: 20px;
-
 }
 img{
   width: 300px;  
