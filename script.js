@@ -71,7 +71,7 @@ function displayProfile(result){
   profileTitle.textContent = "Profile";
   profileWarraper.appendChild(profileTitle);
 
-
+  
   // <アイコンの画像>
   // 画像取得方法URL
   // https://magazine.techacademy.jp/magazine/20738
