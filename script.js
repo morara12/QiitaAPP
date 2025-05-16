@@ -1,3 +1,4 @@
+
 // document.addEventListener("DOMContentLoaded",getProfileInformation());
 
 const profile = document.getElementById("profile-btn");
@@ -6,23 +7,22 @@ profile.addEventListener("click", () => getProfileInformation());
 const articlelist = document.getElementById("article-lists-btn");
 articlelist.addEventListener("click", () => getArticleList());
 
-const pass = document.getElementById("pass");
-
+const tokenForm = document.getElementById("token-form");
 // ＜トークン呼び出し＞
-async function  getToken(){
-  const response  = await fetch('./config.json');
-  const data = await response.json();
+// async function  getToken(){
+//   const response  = await fetch('./config.json');
+//   const data = await response.json();
 
-  return data.qiitaAccessToken;
-}
+//   return data.qiitaAccessToken;
+// }
 
 // <トークンを発火>
 async function getResponse(){
-  const qiitaAccessToken = await getToken();
+  // const qiitaAccessToken = await getToken();
 
   const myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${qiitaAccessToken}`);
-
+  myHeaders.append("Authorization", `Bearer ${tokenForm.value}`);
+  console.log
   const requestOptions = {
     method: "GET",
     headers: myHeaders,
@@ -71,7 +71,7 @@ function displayProfile(result){
   profileTitle.textContent = "Profile";
   profileWarraper.appendChild(profileTitle);
 
-
+  
   // <アイコンの画像>
   // 画像取得方法URL
   // https://magazine.techacademy.jp/magazine/20738
