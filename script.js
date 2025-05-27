@@ -54,16 +54,16 @@ function displayProfile(item){
 
 /* <記事一覧取得> */
 async function getArticleList(){
-  const articleListsArea = document.getElementById("article-list-title-wrapper");
+  const wrapper = document.getElementById("article-list-title-wrapper");
 
   try {
     const requestOptions = await getResponse();
     const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions);
     const itemList = await response.json();
 
-  if (!articleListsArea.querySelector('p.article')){
-    displayArticleLists(itemList); }
-  if(articleListsArea.querySelector('article-detail')){
+  if (!wrapper.querySelector('p.article')){
+    displayArticleLists(itemList,); }
+  if(wrapper.querySelector('article-detail')){
     displayArticleLists(itemList); }
   } catch (error) {
     console.error(error);
@@ -137,42 +137,50 @@ function articleCreateElement(title,created_at,tags,likes_count,rendered_body,ar
     wrapper,
     title,
     rendered_body,
-    articleListsArea
+    articleListsArea,
+    tagWrapper,
+    likesCount,
+    createDay,
   )
   );
 
 }
 
-function getArticleDetail(wrapper,title,rendered_body,articleListsArea){
+function getArticleDetail(wrapper,title,rendered_body,articleListsArea,tagWrapper,likesCount,createDay){
+  const articleWrapper = document.createElement('div');
+  articleWrapper.className = "article-content"
+  articleListsArea.appendChild(articleWrapper)
+
   let backBtn = document.createElement("button");
   backBtn.textContent = "戻る";
   backBtn.className = "back-btn";
 
   backBtn.addEventListener("click",() =>getArticleList());
 
-  articleListsArea.appendChild(backBtn)
-
+  articleWrapper.appendChild(backBtn)
 
   const contentHeader = document.querySelector("p.content-header");
 
   contentHeader.remove();
   wrapper.remove();
 
-
   const article  = document.createElement('p')
   article.className =  'detail-article';
   article.textContent = title;
-  articleListsArea.appendChild(article)
-
+  articleWrapper.appendChild(article)
+  
+  createDay.className ="article-create-day"
+  articleWrapper.appendChild(createDay);
    // マークダウン式をhtmlで読み替えるように変換
   const articleDetail = document.createElement("div");
   articleDetail.id = 'article-detail'
   const html = marked.parse(rendered_body);
   articleDetail.innerHTML = html;
 
-  articleListsArea.appendChild(articleDetail);
-  
-  return articleDetail
+  articleWrapper.appendChild(articleDetail);
+
+  articleDetail.appendChild(tagWrapper);
+  articleDetail.appendChild(likesCount);
 }
 
 function Tabs() {
