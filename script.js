@@ -1,255 +1,170 @@
-
-// document.addEventListener("DOMContentLoaded",getProfileInformation());
-
 const profile = document.getElementById("profile-btn");
 profile.addEventListener("click", () => getProfileInformation());
 
-const articlelist = document.getElementById("article-lists-btn");
-articlelist.addEventListener("click", () => getArticleList());
-
-const tokenForm = document.getElementById("token-form");
-// ＜トークン呼び出し＞
-// async function  getToken(){
-//   const response  = await fetch('./config.json');
-//   const data = await response.json();
-
-//   return data.qiitaAccessToken;
-// }
-
-
+const articlelist = document.getElementById("article-list-btn");
+articlelist.addEventListener("click",() =>getArticleList());
 
 // <トークン発火>
 async function getResponse(){
-  // const qiitaAccessToken = await getToken();
-
   const myHeaders = new Headers();
+  const tokenForm = document.getElementById("token-form");
   myHeaders.append("Authorization", `Bearer ${tokenForm.value}`);
-  console.log
-  const requestOptions = {
+
+  return requestOptions = {
     method: "GET",
     headers: myHeaders,
     redirect: "follow"
   }
-
-  return requestOptions
 }
 
-//　<プロフィール情報を取得> /
-async function getProfileInformation(){
-  const profileArea = document.getElementById("profile");
-  
   // https://qiita.com/andota05/items/fc1e340642be42ca47c0
   // throw文参考
   // divのクラスやIDを取得して、残っていたら、情報をスルーする
   // 情報取得できているかIFで作って、あればreturnさせる処理をする
+
+//　<プロフィール情報を取得> /
+async function getProfileInformation(){
+
   try{
     const requestOptions = await getResponse();
     const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
-    const data = await response.json();
+    const item = await response.json();
 
-    //https://techplay.jp/column/469
-  if (!profileArea.querySelector('.display-profile')){
-    displayProfile(data); 
-    }
+    displayProfile(item)
+
   } catch (error) {
     console.error(error);
   }
 }
 
-
-// <プロフィール情報をhtml状に表示>
-function displayProfile(result){
-  // 古い情報を残っているため、ボタンをクリックするたび表示されてしまう
-  const profileArea = document.getElementById("profile");
-
-  // ＜大枠＞
-  const profileWarraper = document.createElement("div");
-  profileWarraper.classList.add("profile-warraper")
-  profileArea.appendChild(profileWarraper)
-
-  // <題目>
-  const profileTitle = document.createElement('div');
-  profileTitle.classList.add("profile-title")
-  // pタグであることは重要ではない
-  profileTitle.textContent = "Profile";
-  profileWarraper.appendChild(profileTitle);
-
-  
+// <受け取ったプロフィール情報表示＞
+function displayProfile(item){
   // <アイコンの画像>
   // 画像取得方法URL
   // https://magazine.techacademy.jp/magazine/20738
-  const div = document.createElement("div");
-  div.classList.add("display-profile")
-  profileWarraper.appendChild(div);
- 
-  const img = document.createElement('img');
-    // result.icon_url にはアイコンのURLを格納
-    // src.埋め込みたい画像へのパス
-  img.src = result.profile_image_url;
-  img.width = "100";
-  img.height = "100";
-  div.appendChild(img);
- 
-  // <ユーザーID、ユーザー紹介文の表示を整理するための枠>
-  const profileIntroductionElement = document.createElement("div");
-  profileIntroductionElement.classList.add("profile-introduction")
-  div.appendChild(profileIntroductionElement)
+  const profileImageUrl = document.getElementById('profile-image-url');
+  profileImageUrl.src = item.profile_image_url;
 
-  // <ユーザ名>
-  const usernameElement= document.createElement('p');
-  usernameElement.classList.add("username")
-  // pタグであることは重要ではない
-  usernameElement.textContent = ` ${result.id}`;
-  profileIntroductionElement.appendChild(usernameElement);
+  const username= document.getElementById('username');
+  username.textContent  = item.id;
 
-  // 「pタグ」のクラスではなく要素を作っている
-  // <ユーザー紹介>
-  const userDescriptionElement = document.createElement('p');
-  userDescriptionElement.classList.add("user-description")
-  userDescriptionElement.textContent = `${result.description}`;
-  profileIntroductionElement.appendChild(userDescriptionElement);
+  const userDescription= document.getElementById('user-description');
+  userDescription.textContent = item.description;
 }
-
 
 /* <記事一覧取得> */
 async function getArticleList(){
-  const articleListsArea = document.getElementById("article-lists");
+  const articleListsArea = document.getElementById("article-list-title-wrapper");
 
-  try{
+  try {
     const requestOptions = await getResponse();
-    const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions)
+    const response = await fetch("https://qiita.com/api/v2/authenticated_user/items", requestOptions);
     const itemList = await response.json();
 
-  if (!articleListsArea.querySelector('.article-lists-title')){
-    displayArticleLists(itemList);
-    }
+  if (!articleListsArea.querySelector('p.article')){
+    displayArticleLists(itemList); }
+  if(articleListsArea.querySelector('article-detail')){
+    displayArticleLists(itemList); }
   } catch (error) {
     console.error(error);
   }
-  
 }
 
+
 // 記事一覧取得
-function displayArticleLists(itemList){
-  const articleListsArea = document.getElementById("article-lists");
+const displayArticleLists = function (itemList){
+  const articleListsArea = document.getElementById("article-list");
+  const wrapper = document.getElementById("article-list-title-wrapper");
 
-
-    // 記事一覧というタイトル
-  const articleListsTitle = document.createElement('p');
-  articleListsTitle.classList.add("article-lists-title")
-  articleListsTitle.textContent = "記事一覧";
-  articleListsArea.appendChild(articleListsTitle);
-  // 大枠
-  const warraper = document.createElement("div");
-  warraper.id='article-lists-title-warraper'
-  articleListsArea.appendChild(warraper);
-
-  const ul = document.createElement("ul")
-  ul.classList.add("article-lists")
-  warraper.appendChild(ul);
-
-  // const titleArray  =  itemList.map((itemList) => itemList.title); 
-  // const titlleCreatDay  =  itemList.map((itemList) => itemList.created_at); 
 
   // 変数の中身を確認する。思い込みをしない
   itemList.forEach((item) => {
-    ul.appendChild(
-      articleListsCreateElement(
+      articleCreateElement(
         item.title,
         item.created_at,
         item.tags,
         item.likes_count,
         item.rendered_body,
-        item.body
+        articleListsArea,
+        wrapper
       )
-    );
     // 関数もぶち込める
   })
 // itemで一括に送るとその先の処理でデータの中身を考える必要がある
 }
 
 
-function articleListsCreateElement(title,created_at,tags,likes_count,rendered_body,body){
-  // 記事を左に揃えるための枠
-  const articleListElement = document.createElement('li');
-  articleListElement.classList.add("title")
-  // 新しい Text ノードを生成します。このメソッドは HTML 文字をエスケープ（文字化）するのに役立つ
-  
+function articleCreateElement(title,created_at,tags,likes_count,rendered_body,articleListsArea,wrapper){
   // 記事の大枠
-  const articleListWarapper = document.createElement('div');
-  articleListWarapper.classList.add("article-list-warapper")
-  articleListElement.appendChild(articleListWarapper);
+  const articleWrapper = document.createElement('div');
+  articleWrapper.className = "article-waraper"
 
-  // タイトル表示
-  const viewText = document.createTextNode(title);
-  articleListWarapper.appendChild(viewText);
-
+  const article  = document.createElement('p')
+  article.className =  'article';
+  article.textContent = title;
+  articleWrapper.appendChild(article)
+  
 // 作成日の表示
-  const creatDay = document.createElement("div");
-  creatDay.classList.add("creat-day")
-
-  articleListWarapper.appendChild(creatDay)
-  const created = created_at.substring(0, 10)
-  creatDay.appendChild(document.createTextNode(created));
-
-
+  const createDay = document.createElement("div");
+  createDay.className = "create-day"
+  createDay.textContent = created_at.substring(0, 10)
+ 
+  articleWrapper.appendChild(createDay)
+  
 // タグの取得と表示
-  tags.forEach((tags) => {
-  const tagWarapper=document.createElement("div");
-  tagWarapper.classList.add("tag")
+  const tagWrapper = document.createElement('div');
+  tagWrapper.className = 'tags';
 
-  tagWarapper.appendChild(document.createTextNode(tags.name))
-  articleListWarapper.appendChild(tagWarapper)
-})
+  tags.forEach((tags) => {
+    const tagItem =document.createElement("div");
+    tagItem.className = "tag";
+    tagItem.textContent =tags.name;
+
+    tagWrapper.appendChild(tagItem); 
+  })
+
+  articleWrapper.appendChild(tagWrapper);
 
 // いいねの取得と表示
   const likesCount = document.createElement("div");
   likesCount.classList.add("likes-count")
-  likesCount.textContent ="♡"
+  likesCount.textContent = `♡ ${likes_count}`;
+  articleWrapper.appendChild(likesCount)
 
-  likesCount.appendChild(document.createTextNode(likes_count))
+  wrapper.appendChild(articleWrapper);
+  
+  articleWrapper.addEventListener("click",() =>getArticleDetail(
+    wrapper,
+    title,
+    rendered_body,
+    articleListsArea
+  )
+  );
 
-  articleListWarapper.appendChild(likesCount)
-
-  // 記事のクリック
-  articleListElement.addEventListener("click", () => {
-
-    const container = document.getElementById("article-lists-title-warraper");
-    container.remove();
-    
-    const articleDetail = document.createElement("div");
-    articleDetail.classList.add("article-detail");
-    articleDetail.appendChild(document.createTextNode(rendered_body))
-
-    const test = document.getElementById("article-lists");
-
-
-    // container に詳細記事を追加
-    test.appendChild(articleDetail);
-})
-  // 記事本文を表示するdivを作成して rendered_body を挿入
-
-
-
-
-  // tagName で指定された HTML 要素を生成
-  //  Element インターフェイスのプロパティで、呼び出された要素のタグ名を返す
-  // Element(要素)とは、<p>要素の内容</p>のように「タグ」+「内容」の組み合わせ
-  // ここでいうインターフェースとは
-  // プロパティ(情報)、メソッド(処理のまとまり)などを定義しているもの。
-  // 継承すると継承元で定義されているプロパティや、メソッドなどを参照・実行できる。
-
-  // 文字列はノードではないので、そのままappendChildすることはできません。
-  // テキストノードに変換する処理を挟む必要があります。
-  //   テキストノード (Text Nodes): これは要素や属性のテキスト内容を表します。
-  // 例）<p>Hello, World!</p>の中の “Hello, World!” がテキストノードです
-  return articleListElement;
 }
 
+function getArticleDetail(wrapper,title,rendered_body,articleListsArea){
+  const contentHeader = document.querySelector("p.content-header");
+
+  contentHeader.remove();
+  wrapper.remove();
 
 
+  const article  = document.createElement('p')
+  article.className =  'detail-article';
+  article.textContent = title;
+  articleListsArea.appendChild(article)
 
+   // マークダウン式をhtmlで読み替えるように変換
+  const articleDetail = document.createElement("div");
+  articleDetail.id = 'article-detail'
+  const html = marked.parse(rendered_body);
+  articleDetail.innerHTML = html;
 
+  articleListsArea.appendChild(articleDetail);
+  
+  return articleDetail
+}
 
 function Tabs() {
   const bindAll = function() {

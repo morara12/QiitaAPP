@@ -60,7 +60,7 @@ body {
   margin-right: 10;
 }
 
-.profile-warraper{
+.profile-wrapper{
   display: flex;
   flex-direction: column;
   width: 80em;
@@ -85,7 +85,7 @@ line-height: 5px;
 padding: 10px;
 }
 
-.user-description{
+#user-description{
 font-size: 20px;
 }
 img{
@@ -104,7 +104,7 @@ body{
   flex-direction: column;
   margin: 3em;
 }
-.username{
+#username{
   font-size: 40px;
   line-height: 1px;
   font-weight: bold;
@@ -119,27 +119,33 @@ body{
   display: flex;
   justify-content: center;
 }
-.article-lists-title-warraper{
+#article-list-title-wrapper{
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
   justify-content: space-evenly;
-  align-items: center;
+  
+  align-items: flex-start
   /* max-width: 800px; */
 }
 
-.title{
+.article{
   font-size: 23px;
-  justify-content: center;
+  display: flex;
 }
 
 ul {
   list-style: none;
 }
 
-.article-list-warapper{
-  margin: 50px;
-border-bottom-style: solid;
-
+.article-waraper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  border-bottom: solid;
+ width: 800px;
 }
 .tag {
   display: inline-block;
@@ -152,4 +158,33 @@ border-bottom-style: solid;
   font-size: 14px;
   border:solid;
 }
+  
+.tags{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
+.create-day{
+font-size: 20px;
+
+}
+
+.content-header{
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 32px;
+}
+
+#article-detail {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;          
+  margin:auto;
+}
+.detail-article{
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 32px;
+  font-weight: bold;
+}

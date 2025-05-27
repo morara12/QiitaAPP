@@ -5,8 +5,6 @@
   <link rel="stylesheet" href="./style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
-
   <title>Qiitaアプリ</title>
 </head>
 <body>
@@ -17,21 +15,28 @@
     </div>
     <div class="tab-buttons">
       <button id="profile-btn" data-tab="profile" class="b-nav-tab active">プロフィール</button>
-      <button id="article-lists-btn" data-tab="article-lists" class="b-nav-tab">記事一覧</button>
+      <button id="article-list-btn" data-tab="article-list" class="b-nav-tab">記事一覧</button>
       <button id="#new-post" data-tab="new-post" class="b-nav-tab">新規投稿</button>
     </div>
   </header>
-  <div class="main-warraper">
+  <div id="main-wrapper">
     <div id="profile" class="b-tab active">
-      <!-- 大枠にコンテナの用意
-      真ん中に自己紹介の表示
-      figma -->
+      <div class="profile-wrapper">
+        <div class="profile-title">Profile</div>
+        <div class="display-profile">
+          <img id ="profile-image-url"width="100" height="100" alt="プロフィールアイコン">
+          <div class="profile-introduction">
+            <p id="username"></p>
+            <p id="user-description"></p>
+          </div>  
+        </div>        
+      </div>          
+    </div>        
+    <div id="article-list" class="b-tab">
+      <p class="content-header">記事一覧</p>
+      <div id="article-list-title-wrapper"></div>
     </div>
-    <div id="article-lists" class="b-tab">
-    </div>
-    <div id="new-post" class="b-tab">
-    新規投稿
-    </div>
+    <div id="new-post" class="b-tab">新規投稿</div>
   </div>
 </body>
 </html>
