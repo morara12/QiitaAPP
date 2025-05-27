@@ -16,7 +16,7 @@ body {
 
 .app-name{
   display: flex;
-  /* flex-direction: row; */
+  flex-direction: row;
   /* 折り返し関係の設定/今回は1行表示 */
   flex-wrap: nowrap;
   /* 文字位置の設定 */
@@ -36,12 +36,13 @@ body {
   border-radius: 4px;
 }
 .b-nav-tab{
-  width: 10em;
-  height: 3em;
+  width: 8.4em;
+  height: 2.4em;
   color: white;
   text-align: center;
   background-color: black;
   border-radius: 10px;
+  font-size: 12px;
 }
 
 .b-tab {
@@ -57,15 +58,16 @@ body {
 	background-color: #666666;
 }
 .tab-buttons{
-  margin-right: 10;
+  margin-right: 10px;
 }
 
 .profile-wrapper{
   display: flex;
   flex-direction: column;
-  width: 80em;
-  margin-top:240px;
-  margin-left:700px;
+  width: 70em;
+  margin-top:8%;
+  margin-left: auto;
+  margin-right: auto;
   height: 60%;
 }
 
@@ -86,11 +88,12 @@ padding: 10px;
 }
 
 #user-description{
-font-size: 20px;
+  font-size: 20px;
 }
+
 img{
-  width: 300px;  
-  height: 300px;
+  width: 250px;  
+  height: 250px;
   border-radius: 1em;
   filter: drop-shadow(0 0 0.75rem black)
 }
@@ -105,12 +108,12 @@ body{
   margin: 3em;
 }
 #username{
-  font-size: 40px;
+  font-size: 30px;
   line-height: 1px;
   font-weight: bold;
 }
 .profile-title{
-  font-size: 70px;
+  font-size: 60px;
 }
 
 .article-lists-title{
@@ -125,13 +128,11 @@ body{
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-evenly;
-  
   align-items: flex-start
-  /* max-width: 800px; */
 }
 
 .article{
-  font-size: 23px;
+  font-size: 18px;
   display: flex;
 }
 
@@ -143,20 +144,18 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
   border-bottom: solid;
- width: 800px;
+  width: 800px;
 }
 .tag {
   display: inline-block;
-  /* background-color: #f0f0f0; */
   color: #333;
-  padding: 4px 8px;
-  margin-top: 8px;
-  margin: 6px;
+  padding: 2px 8px;
+  margin: 4px;
   border-radius: 4px;
   font-size: 14px;
-  border:solid;
+  border:solid 2.5px;
+  border-radius: 8px;
 }
   
 .tags{
@@ -165,15 +164,19 @@ ul {
   justify-content: flex-start;
 }
 
-.create-day{
-font-size: 20px;
+.likes-count{
+  font-size: 16px;
+}
 
+.create-day{
+font-size: 18px;
+  display: flex;
 }
 
 .content-header{
   display: flex;
   justify-content: space-evenly;
-  font-size: 32px;
+  font-size: 24px;
 }
 
 #article-detail {
@@ -181,10 +184,29 @@ font-size: 20px;
   flex-direction: column;
   max-width: 800px;          
   margin:auto;
+  font-size: 16px;
 }
 .detail-article{
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
+}
+
+.back-btn{
+  width: 5em;
+  height: 3em;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.article-content{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: auto;
+  max-width: 600px;
+  width: 100%;
+  background-color: white;
+  padding: 2em;
+  border-radius: 10px;
 }
