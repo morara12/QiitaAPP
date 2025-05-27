@@ -144,6 +144,15 @@ function articleCreateElement(title,created_at,tags,likes_count,rendered_body,ar
 }
 
 function getArticleDetail(wrapper,title,rendered_body,articleListsArea){
+  let backBtn = document.createElement("button");
+  backBtn.textContent = "戻る";
+  backBtn.className = "back-btn";
+
+  backBtn.addEventListener("click",() =>getArticleList());
+
+  articleListsArea.appendChild(backBtn)
+
+
   const contentHeader = document.querySelector("p.content-header");
 
   contentHeader.remove();

@@ -86,7 +86,7 @@ padding: 10px;
 }
 
 #user-description{
-font-size: 20px;
+  font-size: 20px;
 }
 img{
   width: 300px;  
@@ -145,7 +145,7 @@ ul {
   justify-content: center;
   margin-top: 50px;
   border-bottom: solid;
- width: 800px;
+  width: 800px;
 }
 .tag {
   display: inline-block;
@@ -187,4 +187,13 @@ font-size: 20px;
   justify-content: space-evenly;
   font-size: 32px;
   font-weight: bold;
+}
+.back-btn{
+  width: 5em;
+  height: 3em;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  display: block;
+  margin-left: 730px ;
 }
