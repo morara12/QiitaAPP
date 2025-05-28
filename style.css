@@ -216,3 +216,16 @@ font-size: 18px;
   padding: 2em;
   border-radius: 10px;
 }
+
+#title{
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  margin:24px auto;
+}
+.EasyMDEContainer{
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  margin: 0 auto;
+}
