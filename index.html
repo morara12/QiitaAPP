@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="./style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+  <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
   <title>Qiitaアプリ</title>
 </head>
 <body>
@@ -33,10 +35,15 @@
       </div>          
     </div>        
     <div id="article-list" class="b-tab">
-      <p class="content-header">記事一覧</p>
-      <div id="article-list-title-wrapper"></div>
+      <!-- <p class="content-header">記事一覧</p>
+      <div id="article-list-title-wrapper"></div> -->
     </div>
-    <div id="new-post" class="b-tab">新規投稿</div>
+    <div id="new-post" class="b-tab">
+      <p class="content-header">新規投稿</p>
+      <textarea id="title"></textarea>
+      <textarea id="my-text-area"></textarea>
+      <script>const easyMDE = new EasyMDE({element: document.getElementById('my-text-area')});</script>
+    </div>
   </div>
 </body>
 </html>
