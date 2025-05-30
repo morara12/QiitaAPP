@@ -7,18 +7,18 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
-  <title>Qiitaアプリ</title>
+  <title>Qiita App</title>
 </head>
 <body>
   <header class="header">
     <div class="app-name">
-      <h2>Qiita APP</h2>
+      <p class ="qiita-app">Qiita App</p>
       <input type="password" id="token-form" name="token" placeholder="トークンを入力してください" />
     </div>
     <div class="tab-buttons">
       <button id="profile-btn" data-tab="profile" class="b-nav-tab active">プロフィール</button>
       <button id="article-list-btn" data-tab="article-list" class="b-nav-tab">記事一覧</button>
-      <button id="#new-post" data-tab="new-post" class="b-nav-tab">新規投稿</button>
+      <button id="new-post-btn" data-tab="new-post" class="b-nav-tab">新規投稿</button>
     </div>
   </header>
   <div id="main-wrapper">
@@ -26,7 +26,7 @@
       <div class="profile-wrapper">
         <div class="profile-title">Profile</div>
         <div class="display-profile">
-          <img id ="profile-image-url"width="100" height="100" alt="プロフィールアイコン">
+          <img id ="profile-image-url" width="100" height="100" alt="プロフィールアイコン"/>
           <div class="profile-introduction">
             <p id="username"></p>
             <p id="user-description"></p>
@@ -36,25 +36,16 @@
     </div>        
     <div id="article-list" class="b-tab"></div>
     <div id="new-post" class="b-tab">
-      <p class="content-header">新規投稿</p>
-      <textarea id="title"></textarea>
-      <textarea id="my-text-area"></textarea>
-      <script>const easyMDE = new EasyMDE({element: document.getElementById('my-text-area')});</script>
+      <div class="new-post">
+        <p class="content-header">新規投稿</p>
+        <input id="enter-title" placeholder="記事タイトル"/>
+        <input id="tags" placeholder="タグを入力。カンマで5つまで入力可"/>
+        <textarea id="my-text-area"placeholder="本文を入力"></textarea>
+        <script>const easyMDE = new EasyMDE({element: document.getElementById('my-text-area')});</script>
+        <button id="post-article-btn" type="button">投稿</button>
+      </div>
     </div>
   </div>
 </body>
 </html>
 <script  src="./script.js"></script>  
-<!-- ボタンの要素を取得 -->
-<!-- ボタンのイベントリスナーを追加、関数の中身がconsole.logだけ -->
-<!-- 追加後qiitプロフィール用取得用のfeach関数を実行 -->
-<!-- filterPriorityHighBtn.addEventListener("click",() => filter("filterPriorityHigh")); -->
-<!-- ⇒プロフィール取得をfilterのかしょでgetプロフィールという関数で呼び出ししてコンソールログで、呼び出されましたよ！という結果を書く --> 
- <!-- そのあと保存ここまでできたことは報告 -->
-  <!-- 保存後、feach関数で呼び出す -->
- <!-- 取得後表示を見て一度、再度設計 -->
-  <!-- 画像の取得 -->
-   <!-- 名前の取得 -->
-  <!-- プロフィールの文言 -->
-  <!-- パスの枠を作る -->
-   <!-- ぱすを読み取る -->

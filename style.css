@@ -6,6 +6,7 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;
+  background-color:#E5E5E5;
 }
 
 .header{
@@ -22,19 +23,25 @@ body {
   /* 文字位置の設定 */
   align-items: center;
   margin: 16px;
-  border-radius:100%;
 }
+
+.qiita-app{
+  font-size: 30px;
+  line-height: 16px;
+}
+
 #token-form{
   width: 16em;
   min-height:24px;
   margin-left: 32px;
-  font-size: 24px;
+  font-size: 16px;
   overflow: hidden;
   color: #666666;
   border-color: #666666;
   outline: solid 2px #7F7F7F;
   border-radius: 4px;
 }
+
 .b-nav-tab{
   width: 8.4em;
   height: 2.4em;
@@ -57,6 +64,7 @@ body {
 .b-nav-tab:hover {
 	background-color: #666666;
 }
+
 .tab-buttons{
   margin-right: 10px;
 }
@@ -68,11 +76,13 @@ body {
   margin-top:8%;
   margin-left: auto;
   margin-right: auto;
-  height: 60%;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+}
 
+.profile-title{
+  font-size: 60px;
 }
 
 .display-profile{
@@ -83,26 +93,10 @@ body {
   width:70em;
 }
 
-.profile-element{
-  font-weight: bolder;
-  font-size: 3em;
-  display: flex;
-  line-height: 5px;
-  padding: 10px;
-}
-
-#user-description{
-  font-size: 20px;
-}
-
 img{
   width: 250px;
   height: 250px;
   border-radius: 1em;
-}
-
-body{
-  background-color:#E5E5E5;
 }
 
 .profile-introduction{
@@ -110,20 +104,28 @@ body{
   flex-direction: column;
   margin: 3em;
 }
+
 #username{
   font-size: 30px;
   line-height: 1px;
   font-weight: bold;
 }
-.profile-title{
-  font-size: 60px;
+
+#user-description{
+  font-size: 20px;
 }
 
-.article-lists-title{
-  font-size: 40px;
-  font-weight: bold;
+.new-post{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.content-header{
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 24px;
 }
 
 #article-list-title-wrapper{
@@ -137,72 +139,41 @@ body{
   border-radius: 10px;
 }
 
+.article-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: solid;
+}
+
 .article{
   font-size: 18px;
   display: flex;
 }
 
-ul {
-  list-style: none;
+.create-day{
+  font-size: 18px;
 }
 
-.article-waraper{
+.tags{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-bottom: solid;
-  width: 800px;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 16px;
 }
+
 .tag {
   display: inline-block;
   color: #333;
   padding: 2px 8px;
   margin: 4px;
-  border-radius: 4px;
   font-size: 14px;
   border:solid 2.5px;
   border-radius: 8px;
 }
-  
-.tags{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
 
 .likes-count{
   font-size: 16px;
-}
-
-.create-day{
-font-size: 18px;
-  display: flex;
-}
-
-.content-header{
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 24px;
-}
-
-#article-detail {
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;          
-  margin:auto;
-  font-size: 16px;
-}
-.detail-article{
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.back-btn{
-  width: 5em;
-  height: 3em;
-  color: white;
-  background-color: black;
-  border-radius: 10px;
 }
 
 .article-content{
@@ -217,15 +188,94 @@ font-size: 18px;
   border-radius: 10px;
 }
 
-#title{
+.back-btn{
+  width: 5em;
+  height: 3em;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.detail-article{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#article-detail {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;          
+  margin:auto;
+  font-size: 16px;
+}
+h1,h2,h3,h4,h5,h6{
+  border-bottom: 1px solid #000;
+}
+
+pre{
+  background-color: #000;
+  color: white;
+  padding:8px;
+  line-height: 24px;
+  border-radius: 8px;
+}
+
+ul{
+  /* リスト項目要素のマーカーを設定 */
+  list-style-type: disc;
+}
+
+table {
+  background-color: #EDEEEE
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+th{
+  background-color: white;
+}
+
+table tr:nth-child(2n) {
+  background-color: white;
+}
+/* nth-childは、全てのセレクタ */
+/* en　偶数 */
+/* tr：行（table row） */
+
+table code {
+  background-color: #DADBDB;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+#enter-title,#tags{
   width: 100%;
   max-width: 600px;
-  display: flex;
-  margin:24px auto;
+  margin:12px auto;
+  font-size:16px;
+  border-radius: 4px;
+  height: 28px; 
 }
+
 .EasyMDEContainer{
   width: 100%;
   max-width: 600px;
   display: flex;
   margin: 0 auto;
 }
+
+#post-article-btn{
+  width: 5em;
+  height: 2.4em;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
