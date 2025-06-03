@@ -128,6 +128,10 @@ img{
   font-size: 24px;
 }
 
+.article-waraper{
+  border-bottom: 1px solid #000;
+}
+
 #article-list-title-wrapper{
   margin: 0 auto;
   align-content: center;

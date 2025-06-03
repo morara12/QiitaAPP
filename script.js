@@ -97,7 +97,7 @@ const displayArticleLists = function (itemList){
       item.created_at,
       item.tags,
       item.likes_count,
-      item.rendered_body,
+      item.body,
       articleListsArea,
       wrapper,
       contentHeader
@@ -107,7 +107,7 @@ const displayArticleLists = function (itemList){
 }
 
 
-function articleCreateElement(title,created_at,tags,likes_count,rendered_body,articleListsArea,wrapper,contentHeader){
+function articleCreateElement(title,created_at,tags,likes_count,body,articleListsArea,wrapper,contentHeader){
   // 記事の大枠
   const articleWrapper = document.createElement('div');
   articleWrapper.className = "article-waraper"
@@ -150,7 +150,7 @@ function articleCreateElement(title,created_at,tags,likes_count,rendered_body,ar
     getArticleDetail(
     wrapper,
     title,
-    rendered_body,
+    body,
     articleListsArea,
     tagWrapper,
     likesCount,
@@ -161,7 +161,7 @@ function articleCreateElement(title,created_at,tags,likes_count,rendered_body,ar
 
 }
 
-function getArticleDetail(wrapper,title,rendered_body,articleListsArea,tagWrapper,likesCount,createDay,contentHeader){
+function getArticleDetail(wrapper,title,body,articleListsArea,tagWrapper,likesCount,createDay,contentHeader){
   // 記事一覧を消す
   contentHeader.remove()
   wrapper.remove()
@@ -192,7 +192,7 @@ function getArticleDetail(wrapper,title,rendered_body,articleListsArea,tagWrappe
    // 記事の内容をマークダウン式でhtmlに読み替えるように変換
   const articleDetail = document.createElement("div");
   articleDetail.id = 'article-detail'
-  const html = marked.parse(rendered_body);
+  const html = marked.parse(body);
   articleDetail.innerHTML = html;
   articleWrapper.appendChild(articleDetail);
 
