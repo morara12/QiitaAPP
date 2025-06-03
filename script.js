@@ -209,7 +209,7 @@ function Tabs() {
   }
 
   // bindあっちとこっちを紐付ける、関連付ける、割り当てること
- // data属性
+  // data属性
   // dataとは(後ろは自由)
   //HTMLの要素にカスタムデータ(オリジナルの属性を作る)を追加するための属性
   //カスタムデータ属性における記述のきまり
@@ -219,7 +219,7 @@ function Tabs() {
   //なので、class名をデータ属性として格納することは適切ではありません。
   // すべてのデータを選んでクリックしたら発動する
 
-    // [data-tab]の[]⇒データ属性のすべてを選択
+  // [data-tab]の[]⇒データ属性のすべてを選択
   const clear = function() {
     const tabElements = document.querySelectorAll('[data-tab]');
     for(var i = 0; i < tabElements.length ; i++) {
@@ -228,7 +228,7 @@ function Tabs() {
       document.getElementById(id).classList.remove('active');
     }
   }
-//getAttribute…属性の取得https://qiita.com/y-t0910/items/f6e01883b3569b7cb0ed
+  //getAttribute…属性の取得https://qiita.com/y-t0910/items/f6e01883b3569b7cb0ed
   const change = function(e) {
     clear();
     e.target.classList.add('active');
