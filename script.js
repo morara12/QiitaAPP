@@ -4,10 +4,13 @@ profile.addEventListener("click", () => getProfileInformation());
 const articlelist = document.getElementById("article-list-btn");
 articlelist.addEventListener("click",() =>getArticleList());
 
+const postBtn = document.getElementById("post-article-btn");
+postBtn.addEventListener("click",() => postToQiita());
+
+const tokenForm = document.getElementById("token-form");
 // <トークン発火>
 async function getResponse(){
   const myHeaders = new Headers();
-  const tokenForm = document.getElementById("token-form");
   myHeaders.append("Authorization", `Bearer ${tokenForm.value}`);
 
   return requestOptions = {
@@ -17,20 +20,19 @@ async function getResponse(){
   }
 }
 
-  // https://qiita.com/andota05/items/fc1e340642be42ca47c0
-  // throw文参考
-  // divのクラスやIDを取得して、残っていたら、情報をスルーする
-  // 情報取得できているかIFで作って、あればreturnさせる処理をする
+// https://qiita.com/andota05/items/fc1e340642be42ca47c0
+// throw文参考
+// divのクラスやIDを取得して、残っていたら、情報をスルーする
+// 情報取得できているかIFで作って、あればreturnさせる処理をする
 
-//　<プロフィール情報を取得> /
+//プロフィール情報を取得 
 async function getProfileInformation(){
   try{
     const requestOptions = await getResponse();
-    const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions)
+    const response = await fetch("https://qiita.com/api/v2/authenticated_user", requestOptions);
     const item = await response.json();
 
-    displayProfile(item)
-
+    displayProfile(item);
   } catch (error) {
     console.error(error);
   }
@@ -78,20 +80,20 @@ const displayArticleLists = function (itemList){
   // 記事の大枠を取得
   // 記事の大枠がなければ、作成する
   if (wrapper === null){
-  contentHeader  = document.createElement('p')
-  contentHeader.className =  'content-header';
-  contentHeader.textContent = "記事一覧";
-  
-  articleListsArea.appendChild(contentHeader);
-  wrapper = document.createElement('div');
-  wrapper.id = "article-list-title-wrapper"
-  articleListsArea.appendChild(wrapper)
+    contentHeader  = document.createElement('p');
+    contentHeader.className =  'content-header';
+    contentHeader.textContent = "記事一覧";
+    
+    articleListsArea.appendChild(contentHeader);
+    wrapper = document.createElement('div');
+    wrapper.id = "article-list-title-wrapper";
+    articleListsArea.appendChild(wrapper);
   }
-
 
   // 変数の中身を確認する。思い込みをしない
   itemList.forEach((item) => {
-    // 関数もぶち込める
+    // 関数も入れられる
+    // itemで一括に送るとその先の処理でデータの中身を考える必要がある
     articleCreateElement(
       item.title,
       item.created_at,
@@ -103,28 +105,26 @@ const displayArticleLists = function (itemList){
       contentHeader
     )
   })
-// itemで一括に送るとその先の処理でデータの中身を考える必要がある
 }
-
 
 function articleCreateElement(title,created_at,tags,likes_count,body,articleListsArea,wrapper,contentHeader){
   // 記事の大枠
   const articleWrapper = document.createElement('div');
-  articleWrapper.className = "article-waraper"
+  articleWrapper.className = "article-waraper";
 
   // タイトル作成
-  const article  = document.createElement('p')
+  const article  = document.createElement('p');
   article.className =  'article';
   article.textContent = title;
-  articleWrapper.appendChild(article)
+  articleWrapper.appendChild(article);
   
-// 作成日の表示
+  // 作成日の表示
   const createDay = document.createElement("div");
-  createDay.className = "create-day"
-  createDay.textContent = created_at.substring(0, 10)
-  articleWrapper.appendChild(createDay)
+  createDay.className = "create-day";
+  createDay.textContent = created_at.substring(0, 10);
+  articleWrapper.appendChild(createDay);
   
-// タグの取得と表示
+  // タグの取得と表示
   const tagWrapper = document.createElement('div');
   tagWrapper.className = 'tags';
 
@@ -138,11 +138,12 @@ function articleCreateElement(title,created_at,tags,likes_count,body,articleList
 
   articleWrapper.appendChild(tagWrapper);
 
-// いいねの取得と表示
+  // いいねの取得と表示
   const likesCount = document.createElement("div");
-  likesCount.classList.add("likes-count")
+  likesCount.classList.add("likes-count");
   likesCount.textContent = `♡ ${likes_count}`;
-  articleWrapper.appendChild(likesCount)
+
+  articleWrapper.appendChild(likesCount);
 
   wrapper.appendChild(articleWrapper);
   
@@ -156,26 +157,24 @@ function articleCreateElement(title,created_at,tags,likes_count,body,articleList
     likesCount,
     createDay,
     contentHeader
-  )
-  );
-
+  ));
 }
 
 function getArticleDetail(wrapper,title,body,articleListsArea,tagWrapper,likesCount,createDay,contentHeader){
   // 記事一覧を消す
-  contentHeader.remove()
-  wrapper.remove()
+  contentHeader.remove();
+  wrapper.remove();
   
   // 記事詳細の大枠作成
   const articleWrapper = document.createElement('div');
-  articleWrapper.className = "article-content"
-  articleListsArea.appendChild(articleWrapper)
+  articleWrapper.className = "article-content";
+  articleListsArea.appendChild(articleWrapper);
 
   // 戻るボタン作成
   let backBtn = document.createElement("button");
   backBtn.textContent = "戻る";
   backBtn.className = "back-btn";
-  articleWrapper.appendChild(backBtn)
+  articleWrapper.appendChild(backBtn);
 
   backBtn.addEventListener("click",() =>getArticleList());
 
@@ -183,15 +182,15 @@ function getArticleDetail(wrapper,title,body,articleListsArea,tagWrapper,likesCo
   const article  = document.createElement('p')
   article.className =  'detail-article';
   article.textContent = title;
-  articleWrapper.appendChild(article)
+  articleWrapper.appendChild(article);
   
   // 作成日表示
-  createDay.className ="article-create-day"
+  createDay.className ="article-create-day";
   articleWrapper.appendChild(createDay);
 
-   // 記事の内容をマークダウン式でhtmlに読み替えるように変換
+  // 記事の内容をマークダウン式でhtmlに読み替えるように変換
   const articleDetail = document.createElement("div");
-  articleDetail.id = 'article-detail'
+  articleDetail.id = 'article-detail';
   const html = marked.parse(body);
   articleDetail.innerHTML = html;
   articleWrapper.appendChild(articleDetail);
@@ -200,28 +199,73 @@ function getArticleDetail(wrapper,title,body,articleListsArea,tagWrapper,likesCo
   articleDetail.appendChild(likesCount);
 }
 
+function getNewPost() {
+  const title = document.getElementById("enter-title").value;
+  const tagsRaw = document.getElementById("tags").value.split(",");
+  // split カンマを目印にデータを区切れる
+  const body = easyMDE.value();
+  // "name": "Ruby"とあるため、これがないと400エラーが起きる
+  const tagsArray = tagsRaw.map(tag => ({
+    name: tag
+  }));
+
+  const newPost = {
+    "body": body,
+    "tags": tagsArray,
+    "title": title
+  }
+  return newPost;
+}
+
+// トークンの読み取り/json形式に変更
+async function createRequestOptions(){
+  const newPost = getNewPost(); 
+  const myHeaders = new Headers();
+
+  // "Authorization"仕様許可証みたいなもの
+  myHeaders.append("Authorization", `Bearer ${tokenForm.value}`);
+
+  // Content-Typeリクエストにおいては クライアントがサーバーに実際に送ったデータの種類を伝える
+  // application/jsonフォーマットでデータが送信される。
+  myHeaders.append("Content-Type", "application/json");
+
+  // JSON.stringify　JSON形式に変換する
+  const raw = JSON.stringify(newPost);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+
+  return requestOptions;
+}
+
+// qiitaに投稿
+async function postToQiita(){
+  try{
+    const requestOptions = await createRequestOptions();
+    await fetch("https://qiita.com/api/v2/items", requestOptions);
+
+    alert("投稿が完了しました！");
+  } catch (error) {
+    console.error(error);
+  }
+} 
+
 function Tabs() {
   const bindAll = function() {
     const tabElements = document.querySelectorAll('[data-tab]');
+
     for(var i = 0; i < tabElements.length ; i++) {
       tabElements[i].addEventListener('click', change);
     }
   }
 
-  // bindあっちとこっちを紐付ける、関連付ける、割り当てること
-  // data属性
-  // dataとは(後ろは自由)
-  //HTMLの要素にカスタムデータ(オリジナルの属性を作る)を追加するための属性
-  //カスタムデータ属性における記述のきまり
-  //1⃣データ属性に格納するデータは文字列である必要があります。
-  //文字列であれば、自由に記述することができます。
-  //2⃣他の要素名と被ってはいけません。
-  //なので、class名をデータ属性として格納することは適切ではありません。
-  // すべてのデータを選んでクリックしたら発動する
-
-  // [data-tab]の[]⇒データ属性のすべてを選択
   const clear = function() {
     const tabElements = document.querySelectorAll('[data-tab]');
+
     for(var i = 0; i < tabElements.length ; i++) {
       tabElements[i].classList.remove('active');
       const id = tabElements[i].getAttribute('data-tab');
